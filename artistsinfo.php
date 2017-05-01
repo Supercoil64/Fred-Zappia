@@ -6,7 +6,7 @@
 	//include("includes/header.php");
 ?>
 
-<h1>Fred Zappia</h1>
+<h1>Artist Statement</h1>
 
 <?php
 	require_once 'includes/config.php';
@@ -22,14 +22,33 @@
 		exit("");
 	}
 	$row = $result->fetch_assoc();
-	print ($row['image']);
-	print ($row['phone']);
-	print ($row['email']);
-	print ($row['introduction']);
-	print ($row['street']);
-	print ($row['zip']);
-	print ($row['city']);
-	print ($row['state']);
+	$artistImageFilename = $row['image'];
+	print("<img src='images/artistinfo/$artistImageFilename'>");
+	print("<p>Fred Zappia</p>");
+	
+	$introduction = $row['introduction'];
+	print("<p>$introduction</p>");
+	
+	print("<h1>Previous Exhibitions</h1>");
+	
+	$sql = "SELECT * FROM Exhibitions INNER JOIN Address_exhibition ON Exhibitions.zip=Address_exhibition.zip;";
+	$result = $mysqli->query($sql);
+	if (!$result) {
+		print($mysqli->error);
+		exit("");
+	}
+	while($row=$result->fetch_assoc()){
+		print($row['content']);
+		print($row['start_time']);
+		print($row['end_time']);
+		print($row['street']);
+		print($row['city']);
+		print($row['state']);
+		print($row['zip']);
+		
+	}
+	
+	
 ?>
 
 </body>
