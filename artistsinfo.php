@@ -39,13 +39,13 @@
 	}
 	while($row=$result->fetch_assoc()){
 		print($row['content']);
-		print($row['start_time']);
-		print($row['end_time']);
-		print($row['street']);
-		print($row['city']);
-		print($row['state']);
-		print($row['zip']);
-		
+		print("<br>");
+		$period = 'From '.$row['start_time'].' To '.$row['end_time'];
+		print($period);
+		print("<br>");		
+		$address = implode(array($row['street'],$row['city'],$row['state'],$row['zip'])," ");
+		print($address);
+		print("<br>");		
 	}
 	
 	
