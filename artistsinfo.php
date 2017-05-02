@@ -9,19 +9,21 @@
 	
 	<body>
 	<?php include "includes/navbar.php" ?>
+
+<h1>Artist Information</h1>
 	
 <?php
 	require_once 'includes/config.php';
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($mysqli->errno) {
 		print($mysqli->error);
-		exit("");
+		exit();
 	}
-	$sql = "SELECT * FROM Artist INNER JOIN Address_artist ON Artist.zip=Address_artist.zip WHERE aid = 1;";
+	$sql = "SELECT * FROM Artist INNER JOIN Address ON Artist.zip=Address.zip WHERE aid = 1;";
 	$result = $mysqli->query($sql);
 	if (!$result) {
 		print($mysqli->error);
-		exit("");
+		exit();
 	}
 	$row = $result->fetch_assoc();
 	$artistImageFilename = $row['image'];
@@ -33,7 +35,7 @@
 	
 	print("<h1>Previous Exhibitions</h1>");
 	
-	$sql = "SELECT * FROM Exhibitions INNER JOIN Address_exhibition ON Exhibitions.zip=Address_exhibition.zip;";
+	$sql = "SELECT * FROM Exhibitions INNER JOIN Address ON Exhibitions.zip=Address.zip;";
 	$result = $mysqli->query($sql);
 	if (!$result) {
 		print($mysqli->error);
