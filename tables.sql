@@ -6,10 +6,11 @@ CREATE TABLE Artist (
 	introduction text NOT NULL,
 	street varchar(100) NOT NULL,
 	zip int NOT NULL,
+	name varchar(20) NOT NULL,
 	PRIMARY KEY(aid)
 );
 
-CREATE TABLE Address_artist (
+CREATE TABLE Address(
 	zip int NOT NULL AUTO_INCREMENT,
 	city varchar(50) NOT NULL,
 	state varchar(50) NOT NULL,
@@ -32,12 +33,6 @@ CREATE TABLE Exhibitions (
 	PRIMARY KEY (eid)
 );
 
-CREATE TABLE Address_exhibition (
-	zip int NOT NULL,
-	city varchar(50) NOT NULL,
-	state varchar(50) NOT NULL,
-	PRIMARY KEY (zip)
-);
 
 CREATE TABLE Ablums (
 	album_id int NOT NULL,
@@ -51,7 +46,7 @@ CREATE TABLE Ablums (
 CREATE TABLE Images (
 	image_id int NOT NULL,
 	title varchar(50) NOT NULL,
-	description varchar(50) NOT NULL,
+	caption varchar(50) NOT NULL,
 	price int NOT NULL,
 	dimensions varchar(50) NOT NULL,
 	file_path varchar(512) NOT NULL,
@@ -62,7 +57,8 @@ CREATE TABLE Images (
 CREATE TABLE Display (
 	image_id int NOT NULL,
 	album_id int NOT NULL,
-	PRIMARY KEY (image_id, album_id),
+	display_id int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (display_id),
 	FOREIGN KEY (image_id) REFERENCES Images(image_id),
 	FOREIGN KEY (album_id) REFERENCES Ablums (album_id)
 )
