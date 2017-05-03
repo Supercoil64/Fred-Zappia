@@ -32,7 +32,7 @@
 	}
 	$row = $result->fetch_assoc();
 	$artistImageFilename = $row['image'];
-	print("<img src='images/artistinfo/$artistImageFilename'>");
+	print("<img src='images/artistinfo/$artistImageFilename' alt='noimage'>");
 	print("<p id='artistimagecaption'>Fred Zappia</p>");
 	
 	$introduction = $row['introduction'];
