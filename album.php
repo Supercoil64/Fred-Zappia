@@ -60,7 +60,7 @@
 
 		}
 
-		$sql = "SELECT images.image_id, images.title, images.caption, images.price, images.dimensions, images.file_path ";
+		$sql = "SELECT Images.image_id, Images.title, Images.caption, Images.price, Images.dimensions, Images.file_path ";
 		$sql .= "FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id AND Albums.album_id = $album_id ";
 		$sql .=  "INNER JOIN Images ON Display.image_id = Images.image_id";
 

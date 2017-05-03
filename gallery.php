@@ -57,7 +57,7 @@
 			$album_id = $row['album_id'];
 			$href = "album.php?album_id=$album_id";
 			print("<a href='$href'>");
-			$query = "SELECT images.file_path FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id INNER JOIN Images ON Images.image_id = Display.image_id WHERE Albums.album_id = $album_id";
+			$query = "SELECT Images.file_path FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id INNER JOIN Images ON Images.image_id = Display.image_id WHERE Albums.album_id = $album_id";
 			$temp = $mysqli->query($query);
 			$path = $temp->fetch_row();
 			if (empty($path)){
