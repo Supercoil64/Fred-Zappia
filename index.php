@@ -10,6 +10,9 @@
 	
 	<body>
 	<?php include "includes/navbar.php" ?>
+	<script type="text/javascript">
+		$("#menu_home").addClass("active");
+	</script>
 	
 	<div id="hero-image">
 		<div class="hero-text">

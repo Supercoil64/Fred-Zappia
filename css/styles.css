@@ -1,15 +1,36 @@
 html, body{
 	height: 100%;
-	background-color: #E5E8E8;
-	font-family: Arial;
+	/*background-color: #E5E8E8;*/
+	/*need to chhange font later*/
+	font-family: 'Arial';
+	border:auto;
 }
 
 #navigation{
+	border-bottom:15px;
+	border-bottom:solid 2px black;
 	opacity: 0.8;
+	font-family: 'Century Gothic', sans-serif;
+	overflow: auto;
+}
+
+.BannerTitle{
+	padding-left:5px;
+	font-size:40px;
+	margin:0px;
+	padding-bottom:10px;
+	float:left;
+	margin-right:200px;
+}
+
+.log:after {
+    clear: both;
 }
 
 #content{
+	border:auto;
 	
+	font-family: 'Century Gothic', sans-serif;
 }
 
 h1{
@@ -17,7 +38,7 @@ h1{
 	padding-top: 10px;
 	color:#2C3E50;
 	font-size: 45px;
-
+	font-weight:normal;
 }
 
 ul {
@@ -25,16 +46,18 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #85929E;
+    /*background-color: #85929E;*/
 }
 
 li {
     float: left;
+	border-left:solid 1px black;
 }
 
 li a {
     display: block;
-    color: white;
+    /*color: white;*/
+	color:black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -42,11 +65,12 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    font-weight:bold;
+	font-size:105%;
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: lightgrey;
 }
 
 body{
@@ -152,6 +176,7 @@ p{
 	font-size: 12px;
 }
 h2{
+	font-weight:normal;
 	text-align: center;
 	padding: 10px;
 }
@@ -256,4 +281,26 @@ h3.center{
 
 .all_img{
     float:left;
+}
+
+
+#artistimagecaption{
+	text-align:center;
+	font-size:140%;
+	margin:5px;
+}
+
+#artiststatement{
+			width:60%;
+	margin: auto;
+	margin-bottom:40px;
+	word-wrap: break-word;
+	
+	font-size:120%;
+}
+
+#exhibitioninfo{
+	width:60%;
+	margin: auto;
+	margin-bottom: 20px;
 }

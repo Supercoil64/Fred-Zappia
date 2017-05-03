@@ -5,11 +5,16 @@
 		<title>Artist's Info</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
 	
 	<body>
 	<?php include "includes/navbar.php" ?>
-
+	<script type="text/javascript">
+		$("#menu_artistinfo").addClass("active");
+	</script>
+	
+<div id="content">
 <h1>Artist Information</h1>
 	
 <?php
@@ -28,12 +33,12 @@
 	$row = $result->fetch_assoc();
 	$artistImageFilename = $row['image'];
 	print("<img src='images/artistinfo/$artistImageFilename'>");
-	print("<p>Fred Zappia</p>");
+	print("<p id='artistimagecaption'>Fred Zappia</p>");
 	
 	$introduction = $row['introduction'];
-	print("<p>$introduction</p>");
+	print("<p id='artiststatement'>$introduction</p>");
 	
-	print("<h1>Previous Exhibitions</h1>");
+	print("<h2>Previous Exhibitions</h2>");
 	
 	$sql = "SELECT * FROM Exhibitions INNER JOIN Address ON Exhibitions.zip=Address.zip;";
 	$result = $mysqli->query($sql);
@@ -41,21 +46,21 @@
 		print($mysqli->error);
 		exit("");
 	}
+	print("<table id='exhibitioninfo'><tr><th> </th><th>Period</th><th>Place</th></tr>");
 	while($row=$result->fetch_assoc()){
-		print($row['content']);
-		print("<br>");
+		print("<tr>");
+		print("<td>{$row['content']}</td>");
 		$period = 'From '.$row['start_time'].' To '.$row['end_time'];
-		print($period);
-		print("<br>");		
-		$address = implode(array($row['street'],$row['city'],$row['state'],$row['zip'])," ");
-		print($address);
-		print("<br>");		
+		print("<td>$period</td>");
+		$address = implode(array($row['street'],$row['city'],$row['state'])," ");
+		print("<td>$address</td>");
+		print("</tr>");
 	}
-	
+	print("</table>");
 	
 ?>
 
-
+</div>
 	</body>
 	
 </html>
