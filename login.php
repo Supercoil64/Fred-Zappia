@@ -21,7 +21,7 @@
 		if (empty($post_username) || empty($post_password)){
 		?>
 			<h2>Log in</h2>
-			<form action="login.php" method="post">
+			<form action="login.php" method="post" class="inputform">
 				Username: <input type="text" name="username"><br>
 				Password: <input type="password" name="password"><br>
 				<input type="submit" value="Login">

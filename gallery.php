@@ -16,7 +16,9 @@
 	</script>
 
 	<!-- This page will show all ablums -->
-
+	<h1>Gallery</h1>
+	
+<div id="content">
 	<?php
 		require_once 'includes/config.php';
 
@@ -58,6 +60,7 @@
 			print("<div class='container'>");
 			$album_id = $row['album_id'];
 			$href = "album.php?album_id=$album_id";
+			print("<div class='desc_album'><h2 id='albumTitle'>{$row[ 'title' ]}</h2></div>");
 			print("<a href='$href'>");
 			$query = "SELECT Images.file_path FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id INNER JOIN Images ON Images.image_id = Display.image_id WHERE Albums.album_id = $album_id";
 			$temp = $mysqli->query($query);
@@ -68,7 +71,7 @@
 			print("<img class = 'pic' src='".$path[0]."' alt='' >");
 			print("</a>");
 			print("<div class='overlay'>");
-			print("<div class='desc_album'><h4>{$row[ 'title' ]}</h4><p>Date Created: {$row['date_created']}</p><p>Date Modified: {$row['date_modified']}</p></div>");
+			//print("<div class='desc_album'><h4>{$row[ 'title' ]}</h4><p>Date Created: {$row['date_created']}</p><p>Date Modified: {$row['date_modified']}</p></div>");
 			if (isset($_SESSION['logged_user_by_sql'])) {
 				print("<div class ='delete'><a href='javascript:delete_id($album_id)' ><p>delete</a>   ");
 				print("<a href='edit_album.php?edit_id=$album_id' >edit</p></a></div>");
@@ -83,7 +86,7 @@
 	?>
 
 	
-
+</div id="content">
 
 	</body>
 	

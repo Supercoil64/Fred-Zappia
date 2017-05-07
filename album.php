@@ -20,9 +20,49 @@
 	<?php include "includes/navbar.php" ?>
 	<script type="text/javascript">
 		$("#menu_gallery").addClass("active");
+		$(window).scroll(function() {
+			var windowHeight = $(document).height();
+			var currentPosition = $(window).height() + $(window).scrollTop();
+			if ((windowHeight - currentPosition) / windowHeight === 0) {
+				var page=$("#pageInfo").val();
+				console.log(page);
+				var albumId=$("#albumId").val();
+				console.log(albumId);
+				var dataToSend = { page : page, albumId : albumId };
+				console.log(dataToSend);
+				request = $.ajax({
+					url: "images-ajax.php",
+					type: "get",
+					data: dataToSend,
+					dataType: "json"
+				});
+				request.done(function(data){
+					var images=data.images;
+					console.log(images);
+					images.forEach(function(images){
+						console.log(images.title);
+						$newImage="<div class = 'box'><div class='container'><a href='full_image.php?id = ";
+						$newImage+=images.image_id;
+						$newImage+="'><img class = 'pic' src= '";
+						$newImage+=images.file_path;
+						$newImage+="' ></img></a><div class='desc'><h4>";
+						$newImage+=images.title;
+						$newImage+="</h4></div></div></div>";
+						$("#content").append($newImage);
+					});
+					
+					
+				});
+					
+			}
+			
+			
+		});
 	</script>
-
-
+	<data id="pageInfo" value=1></data>
+	
+	
+<div id="content">
 	<!-- after click on one album, it will show images in that ablum -->
 
 
@@ -32,7 +72,8 @@
 			//Try to get it from the POST data (form submission)
 			$album_id = filter_input( INPUT_POST, 'album_id', FILTER_SANITIZE_NUMBER_INT );
 		}
-
+		
+		print("<data id='albumId' value='$album_id'></data>");
 
 		require_once 'includes/config.php';
 
@@ -67,14 +108,14 @@
 			}
 
 		}
-
+		
 		$sql = "SELECT Images.image_id, Images.title, Images.caption, Images.price, Images.dimensions, Images.file_path ";
 		$sql .= "FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id AND Albums.album_id = $album_id ";
 		$sql .=  "INNER JOIN Images ON Display.image_id = Images.image_id";
-
+		
 		$result = $mysqli->query($sql);
 
-		print ("<h2>$album_name</h2>");
+		print ("<h1>Gallery - $album_name</h1>");
 
 		 while($row = $result->fetch_assoc()){
 		 	print("<div class = 'box'>");
@@ -82,6 +123,7 @@
 		 	$id = $row['image_id'];
 		 	$href = "full_image.php?id= $id";
 		 	print("<a href='$href'>"); 
+			
 		 	print("<img class = 'pic' src= '".$row[ 'file_path' ]."' ></img>");
 		 	print("</a>");
 		 	print(" <div class='desc'><h4>{$row[ 'title' ]}</h4></div>");
@@ -96,7 +138,7 @@
 
 		 ?>
 
-
+</div id="content">
 
 	</body>
 	

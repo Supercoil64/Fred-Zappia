@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<body>
 <?php
-	//Infinite scroll	PHP – return images when called	require_once '../functions.php';
 	function get_page() {
-		$page = 1; //Default to the first page
+		$page = 1;
 		$input_page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
 		if( ! empty( $input_page ) ) {
 			if( $input_page > 1 ) {
@@ -13,31 +9,34 @@
 		}
 		return $page;
 	}
-	function get_thumbnails( $page = 1 ) {
-		require_once 'includes/config.php';
-		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if ( $mysqli->connect_error ) {
-			die('Connect Error: ' . $mysqli->connect_error);
-		}
-		$per_page = 10;
-		$offset = $per_page * ( $page - 1);
-		$query = "SELECT * FROM Albums INNER JOIN Display ON Albums.albumID=Display.albumID INNER JOIN Images ON Images.imageID= Display.imageID";
-		$query .= " WHERE Albums.albumID=$albumID"
-		$query .= " LIMIT $offset, $per_page;";
-		$result = $mysqli->query($query);
-		return $result;
+	function get_image( $page = 1 ) {
+
 	}
 	
-	$page = get_page();
-	$result = get_thumbnails( $page );
+	$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
+	$album_id = filter_input( INPUT_GET, 'albumId', FILTER_SANITIZE_NUMBER_INT);
+	require_once 'includes/config.php';
+	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if ( $mysqli->connect_error ) {
+		die('Connect Error: ' . $mysqli->connect_error);
+	}
+	$per_page = 3;
+	$offset = $per_page * $page;
+	
+	$sql = "SELECT * ";
+	$sql .= "FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id ";
+	$sql .= "INNER JOIN Images ON Display.image_id = Images.image_id ";
+	$sql .= "WHERE Albums.album_id=$album_id";
+	
+	
+	
+	
+	
+//	$query .= " LIMIT $offset, $per_page;";
+	$result = $mysqli->query($sql);
 	$all_rows = $result->fetch_all( MYSQLI_ASSOC );
 	$response = array('images' => $all_rows, );
 	print(json_encode( $response ) );
 	die();
 	
 ?>
-
-
-
-</body>
-</html>

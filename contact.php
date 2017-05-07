@@ -14,9 +14,10 @@
 		$("#menu_contact").addClass("active");
 	</script>
 	
+	<div id="content">
 	<h1>Contact</h1>
 	
-	<form action="mailto:brc77@cornell.edu" method="post" enctype="text/plain" id="contact_form">
+	<form action="mailto:brc77@cornell.edu" method="post" enctype="text/plain" id="contact_form" class="inputform">
 		<br>
 		<input type="text" name="name" id="name" placeholder="Name"><br>
 		<br>
@@ -27,7 +28,7 @@
 		<input type="reset" value="Reset">
 	</form>
 	
-
+	</div>
 	</body>
 	
 </html>
