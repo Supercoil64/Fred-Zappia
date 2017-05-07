@@ -1,3 +1,4 @@
+<? session_start() ?>
 <!DOCTYPE html>
 
 <html>
@@ -51,7 +52,8 @@
 		}
 
 		$result = $mysqli->query("SELECT * FROM Albums");
-	
+		
+		print ("<a href = 'all_images.php'><h4>view all paintings<h4><a>");
 
 		while($row = $result->fetch_assoc()){
 			print("<div class='box'>");
@@ -76,6 +78,7 @@
 			}
 			print ("</div></div></div>");
 		}
+
 
 
 		$mysqli->close();

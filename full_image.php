@@ -36,11 +36,13 @@
 	$file_path = $row["file_path"];
 	$title = $row["title"];
 	$caption = $row["caption"];
+	$dimensions = $row["dimensions"];
+	$price = $row["price"];
 
 	print("<br><br>");
 	print("<h2>$title</h2>");
 	print("<img class = 'full_img' src='".$file_path."' src=''></img>");
-	print(" <div class='desc'>$caption<br><br></div></div></div></div>");
+		print(" <div class='desc'>$caption<br><br>dimension: $dimensions<br><br>price: $price</div></div></div></div>");
 
 	print ("<div>");
 	print ("<h4>Album(s) it is in: </h4>");
