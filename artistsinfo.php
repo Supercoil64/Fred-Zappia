@@ -46,7 +46,7 @@
 	if(empty($_SESSION['logged_user_by_sql'])){
 		print("<p id='artiststatement'>$introduction</p>");
 	}else{
-		print("<form method = 'post'><textarea name='new_introduction'>$introduction</textarea><br><input type = 'submit' value = 'Save' name = 'save_introduction'>");
+		print("<form method = 'post'><textarea rows='4' cols='50' name='new_introduction' id='artiststatement'>$introduction</textarea><br><input type = 'submit' value = 'Save' name = 'save_introduction'>");
 	}
 	print("<h2>Previous Exhibitions</h2>");
 	
@@ -104,12 +104,22 @@
 		}
 		
 		
+		$sql = "SELECT * FROM Artist WHERE aid = 1;";
+		$result = $mysqli->query($sql);
+		if (!$result) {
+			print($mysqli->error);
+			exit();
+		}
+		$row = $result->fetch_assoc();
+		$artistImageFilename = $row['image'];
+				
 		$sql = "UPDATE Artist SET image='$file_name' WHERE aid = 1;";
 		$mysqli->query($sql);
 		
 		#img folder's file permission should allow write.
 		move_uploaded_file($tempName,"images/artistinfo/$file_name");
-		chmod("img/$file_name",0777);
+		chmod("images/artistinfo/$file_name",0777);
+		unlink("images/artistinfo/$artistImageFilename");
 		
 		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
 				
