@@ -1,3 +1,4 @@
+<? session_start() ?>
 <!DOCTYPE html>
 
 <html>
@@ -33,11 +34,20 @@
 	$row = $result->fetch_assoc();
 	$artistImageFilename = $row['image'];
 	print("<img src='images/artistinfo/$artistImageFilename' alt='noimage'>");
+	if(isset($_SESSION['logged_user_by_sql'])){
+		print("<form method = 'post' enctype = 'multipart/form-data'>");
+		print("<input type = 'file' name='new_artistphoto'>");
+		print("<input type = 'submit' value = 'Save' name = 'save_artistphoto'>");
+		print("</form>");
+	}	
 	print("<p id='artistimagecaption'>Fred Zappia</p>");
 	
 	$introduction = $row['introduction'];
-	print("<p id='artiststatement'>$introduction</p>");
-	
+	if(empty($_SESSION['logged_user_by_sql'])){
+		print("<p id='artiststatement'>$introduction</p>");
+	}else{
+		print("<form method = 'post'><textarea name='new_introduction'>$introduction</textarea><br><input type = 'submit' value = 'Save' name = 'save_introduction'>");
+	}
 	print("<h2>Previous Exhibitions</h2>");
 	
 	$sql = "SELECT * FROM Exhibitions INNER JOIN Address ON Exhibitions.zip=Address.zip;";
@@ -57,6 +67,68 @@
 		print("</tr>");
 	}
 	print("</table>");
+	
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_artistphoto'])){
+		$newFile=$_FILES['new_artistphoto'];
+		if($newFile['error']==4){
+			echo "<script type='text/javascript'>alert('No image')</script>";
+			exit();
+		}elseif($newFile['error']!=0){
+			echo "<script type='text/javascript'>alert('File upload error')</script>";
+			exit();
+		}
+		$tempName=$newFile['tmp_name'];
+		$file_name=$newFile['name'];
+		
+		if(strlen($file_name)>512){
+			echo "<script type='text/javascript'>alert('Too long file name')</script>";
+			exit();
+		}
+		
+		$filetype=$newFile['type'];
+		if($filetype!=="image/png" && $filetype!=="image/jpeg" && $filetype!=="image/gif"){
+			echo "<script type='text/javascript'>alert('Upload file is not image file (png, jpeg, gif).')</script>";
+			exit();
+		}
+		
+		if($newFile['size']>3145728){
+			echo "<script type='text/javascript'>alert('Maximum file size is 3MB')</script>";
+			exit();			
+		}
+		
+		require_once 'includes/config.php';
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->errno) {
+			print($mysqli->error);
+			exit();
+		}
+		
+		
+		$sql = "UPDATE Artist SET image='$file_name' WHERE aid = 1;";
+		$mysqli->query($sql);
+		
+		#img folder's file permission should allow write.
+		move_uploaded_file($tempName,"images/artistinfo/$file_name");
+		chmod("img/$file_name",0777);
+		
+		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
+				
+	}
+	
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_introduction'])){
+		$new_introduction=FILTER_INPUT(INPUT_POST,new_introduction,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->errno) {
+			print($mysqli->error);
+			exit();
+		}
+		$sql = "UPDATE Artist SET introduction='$new_introduction' WHERE aid = 1;";
+		$mysqli->query($sql);
+		
+		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
+				
+	}
+	
 	
 ?>
 
