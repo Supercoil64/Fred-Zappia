@@ -128,30 +128,46 @@ iframe{
     color: white;
 }
 
-.pic{
-/*	max-width: 300px;
-	max-height: 220px;*/
-    max-height:100%;
-    max-width:100%;
-    object-fit: contain;
-}
+
 
 .box{
-    width: 300px;
-    height: 220px;
-	padding:10px;
+    margin-top: 20px;
+    width: 30%;
+	padding:0 10px;
 	float:left;
 }
 
+@media only screen and (max-width: 700px){
+    .box {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .box {
+        width: 100%;
+    }
+}
+
+
+
 .container{
 	width:300px;
-    height:auto;
+    height:320px;
 	border: 1px solid white;
-	padding:10px;
+    float:left;
 }
 
 .container:hover {
     border: 1px solid #777;
+}
+
+.container img{
+    width:300px;
+    height:180px;
+    height:70%;
+    width:auto;
 }
 
 .desc {
@@ -160,13 +176,13 @@ iframe{
 
 }
 .desc_img {
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     word-break: break-all;
     
 }
 .desc_album{
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     word-break: break-all;
 }
@@ -275,6 +291,11 @@ h3.center{
 }
 
 .delete{
+    clear:both;
+    display: block;
+    bottom: 15%;
+    right: 3%;
+    position: relative;
     text-align: right;
 }
 
@@ -298,7 +319,7 @@ h3.center{
 }
 
 #artiststatement{
-			width:60%;
+	width:60%;
 	margin: auto;
 	margin-bottom:40px;
 	word-wrap: break-word;
@@ -323,12 +344,29 @@ h3.center{
 a.view_all:link, a.view_all:visited{
     width:40%;
     height:10%;
-    left:30%;
-    position: relative;
+    margin-left: 30%;
+    margin-right: : 30%;
     background-color: grey;
     color: white;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+}
+
+a.return:link, a.return:visited {
+    float: right;
+    position: relative;
+    background-color: white;
+    color: black;
+    border: 2px solid green;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.return:hover, a.return:active {
+    background-color: green;
+    color: white;
 }
 
