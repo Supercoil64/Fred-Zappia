@@ -57,8 +57,8 @@
 		}
 
 		// $sql = "SELECT * FROM images";
-		$sql = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path FROM Images INNER JOIN Display ON Images.image_id = Display.image_id";
-		$sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
+		$sql = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images INNER JOIN Display ON Images.image_id = Display.image_id";
+		$sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
 		if ($mysqli->query($sql)){
 			$result = $mysqli->query($sql);
 		}else {
@@ -80,7 +80,7 @@
 		 	print("<a href='$href'>"); 
 		 	print("<img class = 'pic' src= '".$row[ 'file_path' ]."' alt=''>");
 		 	print("</a>");
-		 	print(" <div class='desc_img'><h4>{$row[ 'title' ]}</h4></div>");
+		 	print(" <div class='desc_img'><h4>{$row[ 'title' ]}</h4><p>$"."{$row[ 'price' ]} {$row[ 'dimensions' ]}</p></div>");
 		 	if (isset($_SESSION['logged_user_by_sql'])) {
 				print("<div class ='delete'><a href='javascript:delete_id($id)' ><p>delete</a> ");
 				print("<a href='edit_image.php?edit_id=$id' >edit</p></a></div>");
