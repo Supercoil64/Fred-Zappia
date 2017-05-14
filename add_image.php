@@ -175,6 +175,7 @@
 		print "</table>";
 		print "<input type = 'submit' value = 'Upload Image' name = 'submit'>";
 		print "</form>";
+		print "<a class='return' href='gallery.php'>return</a>";
 		print "</div>";
 	}
 		?>

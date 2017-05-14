@@ -111,6 +111,7 @@
 
 			print "<input type = 'submit' name = 'save_album' value = 'Save'>";
 			print "</form>";
+			print "<a class='return' href='gallery.php'>return</a>";
 			print "</div>";
 		}
 
