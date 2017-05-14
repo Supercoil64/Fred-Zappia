@@ -53,8 +53,11 @@
 
 		$result = $mysqli->query("SELECT * FROM Albums");
 		
-		print ("<a href = 'all_images.php'><h4>view all paintings<h4><a>");
-
+		print ("<a class ='view_all' href = 'all_images.php'><h3>view all paintings ><h3><a>");
+		if (isset($_SESSION['logged_user_by_sql'])) {
+		print ("<a href = 'add_album.php'><h4>add new album<h4><a>");
+		print ("<a href = 'add_image.php'><h4>add new image<h4><a>");
+	}
 		while($row = $result->fetch_assoc()){
 			print("<div class='box'>");
 			print("<div class='container'>");

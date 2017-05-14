@@ -90,6 +90,7 @@ table{
 }
 
 img{
+
 	display: block;
 	margin: 0 auto;
 }
@@ -128,17 +129,23 @@ iframe{
 }
 
 .pic{
-	width: 300px;
-	height: 220px;
+/*	max-width: 300px;
+	max-height: 220px;*/
+    max-height:100%;
+    max-width:100%;
+    object-fit: contain;
 }
 
 .box{
+    width: 300px;
+    height: 220px;
 	padding:10px;
 	float:left;
 }
 
 .container{
 	width:300px;
+    height:auto;
 	border: 1px solid white;
 	padding:10px;
 }
@@ -311,3 +318,17 @@ h3.center{
 	margin-bottom:5px;
 	padding:0;
 }
+
+
+a.view_all:link, a.view_all:visited{
+    width:40%;
+    height:10%;
+    left:30%;
+    position: relative;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+

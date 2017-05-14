@@ -126,7 +126,7 @@
 			
 		 	print("<img class = 'pic' src= '".$row[ 'file_path' ]."' ></img>");
 		 	print("</a>");
-		 	print(" <div class='desc'><h4>{$row[ 'title' ]}</h4></div>");
+		 	print(" <div class='desc'><h4>{$row[ 'title' ]}</h4><p>$"."{$row[ 'price' ]} {$row[ 'dimensions' ]}</p></div>");
 		 	if (isset($_SESSION['logged_user_by_sql'])) {
 				print("<div class ='delete'><a href='javascript:delete_id($id,$album_id)' ><p>delete</p></a></div>");
 			}
