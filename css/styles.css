@@ -390,3 +390,9 @@ tr input[type=text]{
     box-sizing: initial;
 }
 
+.pic{
+    width: 220px;
+    height: 320px;
+}
+
+

@@ -77,15 +77,15 @@
 	if (!empty($result_img) && $result_img->num_rows != 0){
 		print ("<h4>Image(s)</h4>");
 	 	print('<table>');
-		print("<tr><th>Image</th><th>Title</th><th>Caption</th><th>Price</th></tr>");
+		print("<tr><th>Image</th><th>Title</th><th>Dimension</th><th>Price</th></tr>");
 	 	while($row_img = $result_img->fetch_assoc()){
 	 		$image_id = $row_img['image_id'];
 	 		$href = "full_image.php?id= $image_id";
 			print('<tr>');
-			print( "<td class='caption' width='25%'>{$row_img[ 'caption' ]}</td>" );
-			print( "<td class='file_path' ><a href='$href'><img class = 'pic' src= '".$row_img[ 'file_path' ]."' ></img></a></td>" );
-	 		print( "<td class='title' width='23%'><a href='$href'>{$row_img[ 'title' ]}</a></td>" );
-	   	    print( "<td class='caption' width='25%'>{$row_img[ 'caption' ]}</td>" );
+			// print( "<td class='caption' width='25%'>{$row_img[ 'caption' ]}</td>" );
+			print( "<td class='file_path' width='20%' ><a href='$href'><img class = 'pic' src= '".$row_img[ 'file_path' ]."' ></img></a></td>" );
+	 		print( "<td class='title' width='15%'><a href='$href'>{$row_img[ 'title' ]}</a></td>" );
+	   	    print( "<td class='dimension' width='25%'>{$row_img[ 'dimensions' ]}</td>" );
 	 		print( "<td class='price' width='20%'>{$row_img[ 'price' ]}</td>" );
 
 
