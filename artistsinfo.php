@@ -50,23 +50,37 @@
 	}
 	print("<h2>Previous Exhibitions</h2>");
 	
-	$sql = "SELECT * FROM Exhibitions INNER JOIN Address ON Exhibitions.zip=Address.zip;";
+	$sql = "SELECT * FROM Exhibitions;";
 	$result = $mysqli->query($sql);
 	if (!$result) {
 		print($mysqli->error);
 		exit("");
 	}
-	print("<table id='exhibitioninfo'><tr><th> </th><th>Period</th><th>Place</th></tr>");
-	while($row=$result->fetch_assoc()){
-		print("<tr>");
-		print("<td>{$row['content']}</td>");
-		$period = 'From '.$row['start_time'].' To '.$row['end_time'];
-		print("<td>$period</td>");
-		$address = implode(array($row['street'],$row['city'],$row['state'])," ");
-		print("<td>$address</td>");
-		print("</tr>");
+	if(empty($_SESSION['logged_user_by_sql'])){
+		print("<table id='exhibitioninfo'><tr><th> </th><th>Period</th><th>Place</th></tr>");
+		while($row=$result->fetch_assoc()){
+			print("<tr>");
+			print("<td>{$row['content']}</td>");
+			$period = $row['start_time'].' to '.$row['end_time'];
+			print("<td>$period</td>");
+			print("<td>{$row['place']}</td>");
+			print("</tr>");
+		}
+		print("</table>");
+				
+	}else{
+		print("<form type='post'><table id='exhibitioninfo'><tr><th>Id</th><th>Title</th><th>From</th><th>To</th><th>Place</th></tr>");
+		while($row=$result->fetch_assoc()){
+			print("<tr>");
+			print("<td>{$row['eid']}</td>");
+			print("<td><input type='text' value={$row['content']}></td>");
+			print("<td><input type='date' value={$row['start_time']}></td>");
+			print("<td><input type='date' value={$row['end_time']}></td>");
+			print("<td><input type='text' value={$row['place']}></td>");
+			print("</tr>");
+		}
+		print("</table><input type='submit' name='save_exhibition' value='Save'></form>");
 	}
-	print("</table>");
 	
 	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_artistphoto'])){
 		$newFile=$_FILES['new_artistphoto'];
@@ -102,8 +116,7 @@
 			print($mysqli->error);
 			exit();
 		}
-		
-		
+				
 		$sql = "SELECT * FROM Artist WHERE aid = 1;";
 		$result = $mysqli->query($sql);
 		if (!$result) {
@@ -139,6 +152,25 @@
 				
 	}
 	
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_introduction'])){
+		$new_introduction=FILTER_INPUT(INPUT_POST,new_introduction,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->errno) {
+			print($mysqli->error);
+			exit();
+		}
+		$sql = "UPDATE Artist SET introduction='$new_introduction' WHERE aid = 1;";
+		$mysqli->query($sql);
+		
+		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
+				
+	}
+	
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_exhibition'])){
+		
+		
+		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
+	}
 	
 ?>
 
