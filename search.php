@@ -63,7 +63,7 @@
 		print("<tr><th>Title</th><th>Date created</th><th>Date Modified</th></tr>");
 		 	while($row_album = $result_album->fetch_assoc()){
 		 		$album_id = $row_album['album_id'];
-		 		$href = "gallary.php?album_id=$album_id";
+		 		$href = "album.php?album_id=$album_id";
 				print('<tr>');
 		 			print( "<td class='title'><a href='$href'>{$row_album[ 'title' ]}</a></td>" );
 		 			print( "<td class='date'>{$row_album[ 'date_created' ]}</td>" );

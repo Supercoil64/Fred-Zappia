@@ -91,7 +91,7 @@
 			if (!empty($_POST['images'])){
 				$images = $_POST['images'];
 				foreach ($images as $image){
-					$mysqli->query("INSERT INTO Display VALUES($edit_id,$image)");
+					$mysqli->query("INSERT INTO Display(album_id,image_id) VALUES($edit_id,$image)");
 				}
 				$message .= "<p>Image(s) added.</p>";
 			}
@@ -133,6 +133,7 @@
 			print ("</table>");
 			print("<input type='submit' name='save' value='save'>");
 			print '</form>';
+			print "<a class='return' href='gallery.php'>return</a>";
 			print("</div>");
 }
 

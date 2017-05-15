@@ -10,8 +10,11 @@
 		<script type="text/javascript">
 			function delete_id(id,album_id){
 			if (confirm('Sure to delete this image in current album?')){
-					window.location.href='gallary.php?album_id='+album_id+ '&delete_id='+id;
+					window.location.href='all_images.php?album_id='+album_id+ '&delete_id='+id;
 				}
+			}
+			function handleSelect(elm){
+				window.location.href = elm.value;
 			}
 		</script>
 	</head>
@@ -56,22 +59,41 @@
 			}
 		}
 
+
+		if (isset($_GET['sort'])){
+			$sort = filter_input(INPUT_GET,'sort',FILTER_SANITIZE_STRING);
+		}
 		// $sql = "SELECT * FROM images";
 		$sql = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images INNER JOIN Display ON Images.image_id = Display.image_id";
-		$sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
+		// $sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
+
+		if (!empty($sort)){
+			$sql .= " ORDER BY $sort";
+			// $sql_noalb .= "ORDER BY $sort";
+		}
 		if ($mysqli->query($sql)){
 			$result = $mysqli->query($sql);
 		}else {
 			echo '<p>Error loading images.</p>';
 			$message .='<p>Error loading images.</p>';
 		}
-		if ($mysqli->query($sql_noalb)){
-			$result_no= $mysqli->query($sql_noalb);
-		}else{
-			$message .='<p>Error loading images.</p>';
-		}
+		// if ($mysqli->query($sql_noalb)){
+		// 	$result_no= $mysqli->query($sql_noalb);
+		// }else{
+		// 	$message .='<p>Error loading images.</p>';
+		// }
+		print("<div id='sort'>");
+		print("<h3>sort by: </h3>"); 
+		print("<select onchange='javascript:handleSelect(this)'>");
+		print("<option value=''></option>");
+		print("<option value='all_images.php?sort=title'>title</option>");
+		print("<option value='all_images.php?sort=price'>price</option>");
+		print("</select>");
+		// print("<a href='all_images.php?sort=title'>title</a>");
+		// print("<a href='all_images.php?sort=price'>price</a>");
+		print("</div>");
 
-		print ("<div class='all_img'>");
+
 		 while($row = $result->fetch_assoc()){
 		 	print("<div class = 'box'>");
 		 	print("<div class='container'>");
@@ -88,28 +110,27 @@
 			}
 			print ("</div></div>");
 		 }
-		 print ("</div>");
 
 
-		 print ("<div class='all_img'>");
-		 print ("<h4>Image(s) that are not in any albums<h4>");
-		 while($row_no = $result_no->fetch_assoc()){
-		 	print("<div class = 'box'>");
-		 	print("<div class='container'>");
-		 	$id = $row_no['image_id'];
-		 	$href = "full_image.php?id=$id";
-		 	print("<a href='$href'>"); 
-		 	print("<img class = 'pic' src= '".$row_no[ 'file_path' ]."' alt=''>");
-		 	print("</a>");
-		 	print(" <div class='desc_img'><h4>{$row_no[ 'title' ]}</h4></div>");
-		 	if (isset($_SESSION['logged_user_by_sql'])) {
-				print("<div class ='delete'><a href='javascript:delete_id($id)' ><p>delete</a> ");
-				print("<a href='edit_image.php?edit_id=$id' >edit</p></a></div>");
+		 // print ("<div class='all_img'>");
+		 // print ("<h4>Image(s) that are not in any albums<h4>");
+		 // while($row_no = $result_no->fetch_assoc()){
+		 // 	print("<div class = 'box'>");
+		 // 	print("<div class='container'>");
+		 // 	$id = $row_no['image_id'];
+		 // 	$href = "full_image.php?id=$id";
+		 // 	print("<a href='$href'>"); 
+		 // 	print("<img class = 'pic' src= '".$row_no[ 'file_path' ]."' alt=''>");
+		 // 	print("</a>");
+		 // 	print(" <div class='desc_img'><h4>{$row_no[ 'title' ]}</h4></div>");
+		 // 	if (isset($_SESSION['logged_user_by_sql'])) {
+			// 	print("<div class ='delete'><a href='javascript:delete_id($id)' ><p>delete</a> ");
+			// 	print("<a href='edit_image.php?edit_id=$id' >edit</p></a></div>");
 
-			}
-			print ("</div></div>");
-		 }
-		 print ("</div>");
+			// }
+			// print ("</div></div>");
+		 // }
+		 // print ("</div>");
 
 		 $mysqli->close();
 	?>

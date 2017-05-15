@@ -128,11 +128,12 @@
 		print "<p>caption:</p>";
 		print "<input type='text' name = 'caption' value='{$db_values['caption']}' >";
 		print "<p>dimension:</p>";
-		print "<input type = 'text' name = 'dimension' value='{$db_values['dimensions']}'>";
+		print "<input type = 'text' name = 'dimensions' value='{$db_values['dimensions']}'>";
 		print "<p>price:</p>";
 		print "<input type = 'text' name = 'price' value='{$db_values['price']}'><br>";
 		print("<input type='submit' name='save_image' value='Save'>");
 		print '</form>';
+		print "<a class='return' href='all_images.php'>return</a>";
 		print("</div>");
 }
 

@@ -370,3 +370,12 @@ a.return:hover, a.return:active {
     color: white;
 }
 
+
+select {
+    padding: 5px 8px;
+    width: 20%;
+    border: none;
+    box-shadow: none;
+}
+
+
