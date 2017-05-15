@@ -35,7 +35,7 @@
 
 		$message = '';
 		$upload = 1;
-		$sql = "SELECT album_id,title FROM albums";
+		$sql = "SELECT album_id,title FROM Albums";
 		$results = $mysqli->query($sql);
 
 		//check if image file is a actual image
@@ -122,6 +122,7 @@
 						$message.='<p>Image Saved.</p>';
 
 						$image_id = $mysqli->insert_id;
+						print("$image_id");
 					} else {
 						$message .= "<p>Error saving image.</p><p>$mysqli->error</p>";
 					}
@@ -131,8 +132,8 @@
 					if (!empty($_POST['albums'])){
 						$albums = $_POST['albums'];
 						foreach ($albums as $album){
-							$mysqli->query("INSERT INTO Display VALUES($album,$image_id)");
-							$mysqli->query("UPDATE Albums SET date_modified = now() WHERE album_id = $album");
+							$mysqli->query("INSERT INTO Display(album_id,image_id) VALUES($album,$image_id)");
+							// $mysqli->query("UPDATE Albums SET date_modified = now() WHERE album_id = $album");
 						}
 					}
 				}

@@ -7,6 +7,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function delete_id(id,album_id){
+			if (confirm('Sure to delete this image in current album?')){
+					window.location.href='gallery.php?album_id='+album_id+ '&delete_id='+id;
+				}
+			}
+		</script>
 	</head>
 	
 	<body>
