@@ -47,10 +47,16 @@
 						$newImage+=images.file_path;
 						$newImage+="' ></img></a><div class='desc'><h4>";
 						$newImage+=images.title;
-						$newImage+="</h4></div></div></div>";
+						$newImage+="</h4><p>$";
+						$newImage+=images.price+" "+images.dimensions+"</p></div>";
+						if ($("#key").val()==1){
+							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+","+albumId+"' ><p>delete</p></a></div>";
+						}
+						$newImage+="</div></div>";
 						$("#content").append($newImage);
 					});
-					
+					page=page+1;
+					$("#pageInfo").attr('value',page);
 					
 				});
 					
@@ -60,6 +66,11 @@
 		});
 	</script>
 	<data id="pageInfo" value=1></data>
+	<?php
+		if(isset($_SESSION['logged_user_by_sql'])){
+			print("<data id='key' value=1></data>");
+		}
+	?>
 	
 	
 <div id="content">
@@ -111,7 +122,7 @@
 		
 		$sql = "SELECT Images.image_id, Images.title, Images.caption, Images.price, Images.dimensions, Images.file_path ";
 		$sql .= "FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id AND Albums.album_id = $album_id ";
-		$sql .=  "INNER JOIN Images ON Display.image_id = Images.image_id";
+		$sql .=  "INNER JOIN Images ON Display.image_id = Images.image_id LIMIT 3";
 		
 		$result = $mysqli->query($sql);
 

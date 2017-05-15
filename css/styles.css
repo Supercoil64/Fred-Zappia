@@ -371,6 +371,7 @@ a.return:hover, a.return:active {
 }
 
 
+
 select {
     padding: 5px 8px;
     width: 20%;
@@ -378,4 +379,14 @@ select {
     box-shadow: none;
 }
 
+
+tr input[type=text]{
+	width: 150px;
+    padding: initial;
+    margin: initial;
+    display: initial;
+    border: solid 1px grey;
+    border-radius: initial;
+    box-sizing: initial;
+}
 

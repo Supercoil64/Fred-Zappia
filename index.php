@@ -12,12 +12,40 @@
 	<?php include "includes/navbar.php" ?>
 	<script type="text/javascript">
 		$("#menu_home").addClass("active");
+		
+		var currentBackground = 0;
+		var backgrounds = [];
+		backgrounds[0] = '/Fred-Zappia/images/paintings/1934.jpg';
+		backgrounds[1] = '/Fred-Zappia/images/paintings/Derby.jpg';
+		backgrounds[2] = '/Fred-Zappia/images/paintings/The Models.jpg';
+
+		function changeBackground() {
+			console.log("in changebackground");
+			currentBackground++;
+			if(currentBackground > 2) currentBackground = 0;
+
+			$('#hero-image').fadeOut(100,function() {
+				console.log("faded");
+				console.log("changing background");
+				$('#hero-image').css({
+					'background-image' : "url('" + backgrounds[currentBackground] + "')"
+				});
+				console.log("fade back in");
+				$('#hero-image').fadeIn(100);
+			});
+
+
+			setTimeout(changeBackground, 5000);
+		}
+
+		$(document).ready(function() {
+			setTimeout(changeBackground, 5000);        
+		});
 	</script>
 	
 	<div id="hero-image">
 		<div class="hero-text">
-			<h1>Fred Zappia</h1>
-			<p>Painter</p>
+			
 		</div>
 	</div>
 	

@@ -20,6 +20,62 @@
 	</head>
 	
 	<body>
+	<data id="pageInfo" value=1></data>
+	<?php
+		if(isset($_SESSION['logged_user_by_sql'])){
+			print("<data id='key' value=1></data>");
+		}
+	?>
+		
+	<script type="text/javascript">
+		$("#menu_gallery").addClass("active");
+		$(window).scroll(function() {
+			var windowHeight = $(document).height();
+			var currentPosition = $(window).height() + $(window).scrollTop();
+			if ((windowHeight - currentPosition) / windowHeight === 0) {
+				var page=$("#pageInfo").val();
+				console.log(page);
+				var dataToSend = { page : page, albumId : 0 };
+				console.log(dataToSend);
+				request = $.ajax({
+					url: "images-ajax.php",
+					type: "get",
+					data: dataToSend,
+					dataType: "json"
+				});
+				request.done(function(data){
+					var images=data.images;
+					console.log(images);
+					images.forEach(function(images){
+						console.log(images.title);
+						$newImage="<div class = 'box'><div class='container'><a href='full_image.php?id = ";
+						$newImage+=images.image_id;
+						$newImage+="'><img class = 'pic' src= '";
+						$newImage+=images.file_path;
+						$newImage+="' ></img></a><div class='desc'><h4>";
+						$newImage+=images.title;
+						$newImage+="</h4><p>$";
+						$newImage+=images.price+" "+images.dimensions+"</p></div>";
+						if ($("#key").val()==1){
+							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+")' ><p>delete</a> ";
+							$newImage+="<a href='edit_image.php?edit_id="+images.image_id+"'>edit</p></a></div>";
+						}
+						$newImage+="</div></div>";
+						$("body").append($newImage);
+					});
+									page=page+1;
+					$("#pageInfo").attr('value',page);
+					
+				});
+					
+			}
+			
+			
+		});
+	</script>
+	
+	
+	
 	<?php include "includes/navbar.php" ?>
 	<script type="text/javascript">
 		$("#menu_gallery").addClass("active");
@@ -64,6 +120,7 @@
 			$sort = filter_input(INPUT_GET,'sort',FILTER_SANITIZE_STRING);
 		}
 		// $sql = "SELECT * FROM images";
+    
 		$sql = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images INNER JOIN Display ON Images.image_id = Display.image_id";
 		// $sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
 
@@ -71,6 +128,7 @@
 			$sql .= " ORDER BY $sort";
 			// $sql_noalb .= "ORDER BY $sort";
 		}
+
 		if ($mysqli->query($sql)){
 			$result = $mysqli->query($sql);
 		}else {
