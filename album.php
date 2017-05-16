@@ -50,7 +50,7 @@
 						$newImage+="</h4><p>$";
 						$newImage+=images.price+" "+images.dimensions+"</p></div>";
 						if ($("#key").val()==1){
-							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+","+albumId+"' ><p>delete</p></a></div>";
+							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+","+albumId+")' ><p>delete</p></a></div>";
 						}
 						$newImage+="</div></div>";
 						$("#content").append($newImage);

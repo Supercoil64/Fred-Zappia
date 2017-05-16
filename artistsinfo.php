@@ -1,7 +1,7 @@
 <? session_start() ?>
 <!DOCTYPE html>
 
-<html>
+<html  lang="en">
 	<head>
 		<title>Artist's Info</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,21 +33,46 @@
 	}
 	$row = $result->fetch_assoc();
 	$artistImageFilename = $row['image'];
-	print("<img src='images/artistinfo/$artistImageFilename' alt='noimage'>");
+	print("<img src='images/artistinfo/$artistImageFilename' alt='' class='artistinfoPhoto'>");
+	print("<p id='artistimagecaption'>Fred Zappia</p>");
 	if(isset($_SESSION['logged_user_by_sql'])){
-		print("<form method = 'post' enctype = 'multipart/form-data'>");
+		print("<form method = 'post' class='artistinfo_save' enctype = 'multipart/form-data'>");
 		print("<input type = 'file' name='new_artistphoto'>");
 		print("<input type = 'submit' value = 'Save' name = 'save_artistphoto'>");
 		print("</form>");
 	}	
-	print("<p id='artistimagecaption'>Fred Zappia</p>");
+
+
 	
-	$introduction = $row['introduction'];
+	
+	$paragraph1 = $row['paragraph1'];
 	if(empty($_SESSION['logged_user_by_sql'])){
-		print("<p id='artiststatement'>$introduction</p>");
+		print("<p class='artiststatement'>$paragraph1</p>");
 	}else{
-		print("<form method = 'post'><textarea rows='4' cols='50' name='new_introduction' id='artiststatement'>$introduction</textarea><br><input type = 'submit' value = 'Save' name = 'save_introduction'>");
+		print("<form method = 'post' class='artistinfo_save'><textarea rows='4' cols='50' name='new_paragraph1' class='artiststatement'>$paragraph1</textarea><br><input type = 'submit' value = 'Save' name = 'save_paragraph1'></form>");
 	}
+	
+	
+	print("<img src='images/artistinfo/Paintbrushes.jpeg' alt='' class='artistinfoPhoto'>");
+	
+	$paragraph2 = $row['paragraph2'];
+	if(empty($_SESSION['logged_user_by_sql'])){
+		print("<p class='artiststatement'>$paragraph2</p>");
+	}else{
+		print("<form method = 'post' class='artistinfo_save'><textarea rows='4' cols='50' name='new_paragraph2' class='artiststatement'>$paragraph2</textarea><br><input type = 'submit' value = 'Save' name = 'save_paragraph2'></form>");
+	}
+	
+	print("<img src='images/artistinfo/Closeupofhand.JPG' alt='' class='artistinfoPhoto'>");
+	
+	
+	$paragraph3 = $row['paragraph3'];
+	if(empty($_SESSION['logged_user_by_sql'])){
+		print("<p class='artiststatement'>$paragraph3</p>");
+	}else{
+		print("<form method = 'post' class='artistinfo_save'><textarea rows='4' cols='50' name='new_paragraph3' class='artiststatement'>$paragraph3</textarea><br><input type = 'submit' value = 'Save' name = 'save_paragraph3'></form>");
+	}
+	
+	
 	print("<h2>Previous Exhibitions</h2>");
 	
 	$sql = "SELECT * FROM Exhibitions;";
@@ -57,26 +82,33 @@
 		exit("");
 	}
 	if(empty($_SESSION['logged_user_by_sql'])){
-		print("<table id='exhibitioninfo'><tr><th> </th><th>Period</th><th>Place</th></tr>");
+		print("<table id='exhibitioninfo'><tr><th> </th><th>Period</th><th>Place</th><th>URL</th></tr>");
 		while($row=$result->fetch_assoc()){
 			print("<tr>");
 			print("<td>{$row['content']}</td>");
 			$period = $row['start_time'].' to '.$row['end_time'];
 			print("<td>$period</td>");
 			print("<td>{$row['place']}</td>");
+			print("<td><a href='{$row['url']}'>{$row['url']}</a></td>");
 			print("</tr>");
 		}
 		print("</table>");
 				
 	}else{
-		print("<form type='post'><table id='exhibitioninfo'><tr><th>Id</th><th>Title</th><th>From</th><th>To</th><th>Place</th></tr>");
+		print("<form method='post' class='artistinfo_save'><table id='exhibitioninfo'><tr><th>Id</th><th>Title</th><th>From</th><th>To</th><th>Place</th><th>URL</th></tr>");
 		while($row=$result->fetch_assoc()){
 			print("<tr>");
 			print("<td>{$row['eid']}</td>");
-			print("<td><input type='text' value={$row['content']}></td>");
-			print("<td><input type='date' value={$row['start_time']}></td>");
-			print("<td><input type='date' value={$row['end_time']}></td>");
-			print("<td><input type='text' value={$row['place']}></td>");
+			$content='content'.$row['eid'];
+			print("<td><input type='text' value={$row['content']} name='$content'></td>");
+			$start_time='start_time'.$row['eid'];
+			print("<td><input type='date' value={$row['start_time']} name='$start_time'></td>");
+			$end_time='end_time'.$row['eid'];
+			print("<td><input type='date' value={$row['end_time']} name='$end_time'></td>");
+			$place='place'.$row['eid'];
+			print("<td><input type='text' value={$row['place']} name='$place'></td>");
+			$url='url'.$row['eid'];
+			print("<td><input type='text' value={$row['url']} name='$url'></td>");
 			print("</tr>");
 		}
 		print("</table><input type='submit' name='save_exhibition' value='Save'></form>");
@@ -131,43 +163,84 @@
 		
 		#img folder's file permission should allow write.
 		move_uploaded_file($tempName,"images/artistinfo/$file_name");
-		chmod("images/artistinfo/$file_name",0777);
-		unlink("images/artistinfo/$artistImageFilename");
 		
 		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
 				
 	}
 	
-	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_introduction'])){
-		$new_introduction=FILTER_INPUT(INPUT_POST,new_introduction,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_paragraph1'])){
+		$new_paragraph1=FILTER_INPUT(INPUT_POST,new_paragraph1,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($mysqli->errno) {
 			print($mysqli->error);
 			exit();
 		}
-		$sql = "UPDATE Artist SET introduction='$new_introduction' WHERE aid = 1;";
+		$sql = "UPDATE Artist SET paragraph1='$new_paragraph1' WHERE aid = 1;";
 		$mysqli->query($sql);
-		
 		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
-				
 	}
 	
-	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_introduction'])){
-		$new_introduction=FILTER_INPUT(INPUT_POST,new_introduction,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_paragraph2'])){
+		$new_paragraph2=FILTER_INPUT(INPUT_POST,new_paragraph2,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($mysqli->errno) {
 			print($mysqli->error);
 			exit();
 		}
-		$sql = "UPDATE Artist SET introduction='$new_introduction' WHERE aid = 1;";
+		$sql = "UPDATE Artist SET paragraph2='$new_paragraph2' WHERE aid = 1;";
 		$mysqli->query($sql);
-		
 		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
-				
 	}
+	
+	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_paragraph3'])){
+		$new_paragraph3=FILTER_INPUT(INPUT_POST,new_paragraph3,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->errno) {
+			print($mysqli->error);
+			exit();
+		}
+		$sql = "UPDATE Artist SET paragraph3='$new_paragraph3' WHERE aid = 1;";
+		$mysqli->query($sql);
+		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
+	}
+	
 	
 	if(!empty($_SESSION['logged_user_by_sql']) && !empty($_POST['save_exhibition'])){
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->errno) {
+			print($mysqli->error);
+			exit();
+		}
 		
+		for ($i = 1; $i <= 3; $i++) {
+			$content='content'.$i;
+			$new=FILTER_INPUT(INPUT_POST,$content,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			$sql = "UPDATE Exhibitions SET content='$new' WHERE eid = $i;";
+			$mysqli->query($sql);
+			
+			$start_time='start_time'.$i;
+			$new=FILTER_INPUT(INPUT_POST,$start_time,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			$sql = "UPDATE Exhibitions SET start_time='$new' WHERE eid = $i;";
+			$mysqli->query($sql);
+			
+			$end_time='start_time'.$i;
+			$new=FILTER_INPUT(INPUT_POST,$end_time,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			$sql = "UPDATE Exhibitions SET end_time='$new' WHERE eid = $i;";
+			$mysqli->query($sql);
+			
+			$place='place'.$i;
+			$new=FILTER_INPUT(INPUT_POST,$place,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			$sql = "UPDATE Exhibitions SET place='$new' WHERE eid = $i;";
+			$mysqli->query($sql);
+			
+			$url='url'.$i;
+			$new=FILTER_INPUT(INPUT_POST,$url,FILTER_SANITIZE_URL);
+			$sql = "UPDATE Exhibitions SET url='$new' WHERE eid = $i;";
+			$mysqli->query($sql);
+						
+		}
+		
+
 		
 		echo "<script type='text/javascript'>alert('Upload success. Please reload the page.')</script>";
 	}
