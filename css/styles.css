@@ -406,3 +406,14 @@ tr input[type=text]{
 	margin-bottom:20px;
 	margin-top:20px;
 }
+
+#reset{
+    width: initial;
+    background-color: initial;
+    color: initial;
+    padding: initial;
+    margin: initial;
+    border: initial;
+    border-radius: initial;
+	text-decoration:underline;
+}
