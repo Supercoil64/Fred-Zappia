@@ -28,7 +28,7 @@
 				<input type="submit" value="Login">
 			</form>
 			<p><a href ="index.php">Return to home page</a></p>
-			<p><form method="POST"><input type="submit" name='reset' value='Password reset' id="reset"></form></p>
+			<form method="POST"><input type="submit" name='reset' value='Password reset' id="reset"></form>
 
 		<?php
 
