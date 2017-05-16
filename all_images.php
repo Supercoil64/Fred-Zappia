@@ -58,7 +58,7 @@
 					console.log(images);
 					images.forEach(function(images){
 						console.log(images.title);
-						$newImage="<div class = 'box'><div class='container'><a href='full_image.php?id = ";
+						$newImage="<div class = 'box'><div class='container'><a href='full_image.php?id=";
 						$newImage+=images.image_id;
 						$newImage+="'><img class = 'pic' src= '";
 						$newImage+=images.file_path;
