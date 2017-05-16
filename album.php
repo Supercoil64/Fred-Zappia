@@ -23,12 +23,13 @@
 		$(window).scroll(function() {
 			var windowHeight = $(document).height();
 			var currentPosition = $(window).height() + $(window).scrollTop();
-			if ((windowHeight - currentPosition) / windowHeight === 0) {
+			if ((windowHeight - currentPosition) / windowHeight <= 0.0001) {
 				var page=$("#pageInfo").val();
 				console.log(page);
 				var albumId=$("#albumId").val();
 				console.log(albumId);
-				var dataToSend = { page : page, albumId : albumId };
+				var sort="none"
+				var dataToSend = { page : page, albumId : albumId, sort:sort};
 				console.log(dataToSend);
 				request = $.ajax({
 					url: "images-ajax.php",

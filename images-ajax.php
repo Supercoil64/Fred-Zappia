@@ -12,6 +12,7 @@
 	
 	$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
 	$album_id = filter_input( INPUT_GET, 'albumId', FILTER_SANITIZE_NUMBER_INT);
+	$sort = filter_input( INPUT_GET, 'sort', FILTER_SANITIZE_STRING);
 	require_once 'includes/config.php';
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ( $mysqli->connect_error ) {
@@ -29,6 +30,9 @@
 		$sql = "SELECT * FROM Images";
 	}
 	
+	if($sort!="none"){
+		$sql .= " ORDER BY  $sort,Images.image_id";
+	}
 	
 	
 	$sql .= " LIMIT $offset, $per_page;";

@@ -25,6 +25,14 @@
 		if(isset($_SESSION['logged_user_by_sql'])){
 			print("<data id='key' value=1></data>");
 		}
+		if(!empty($_GET['sort'])){
+			$sort=FILTER_INPUT(INPUT_GET,'sort',FILTER_SANITIZE_STRING);
+			print("<data id='sort' value=$sort></data>");
+		}else{
+			print("<data id='sort' value='none'></data>");
+		}
+		
+		
 	?>
 		
 	<script type="text/javascript">
@@ -32,10 +40,11 @@
 		$(window).scroll(function() {
 			var windowHeight = $(document).height();
 			var currentPosition = $(window).height() + $(window).scrollTop();
-			if ((windowHeight - currentPosition) / windowHeight === 0) {
+			if ((windowHeight - currentPosition) / windowHeight <= 0.0001) {
 				var page=$("#pageInfo").val();
 				console.log(page);
-				var dataToSend = { page : page, albumId : 0 };
+				var sort=$("#sort").val();
+				var dataToSend = { page : page, albumId : 0 , sort : sort};
 				console.log(dataToSend);
 				request = $.ajax({
 					url: "images-ajax.php",
@@ -63,9 +72,10 @@
 						$newImage+="</div></div>";
 						$("body").append($newImage);
 					});
-									page=page+1;
+					page=page*1;
+					page=page+1;
 					$("#pageInfo").attr('value',page);
-					
+							
 				});
 					
 			}
@@ -125,10 +135,12 @@
 		// $sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
 
 		if (!empty($sort)){
-			$sql .= " ORDER BY $sort";
+			$sql .= " ORDER BY $sort, Images.image_id";
 			// $sql_noalb .= "ORDER BY $sort";
 		}
-
+		
+		$sql .= " LIMIT 3";
+		
 		if ($mysqli->query($sql)){
 			$result = $mysqli->query($sql);
 		}else {
