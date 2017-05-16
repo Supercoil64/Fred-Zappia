@@ -52,7 +52,7 @@
 		print("<form method = 'post' class='artistinfo_save'><textarea rows='4' cols='50' name='new_paragraph1' class='artiststatement'>$paragraph1</textarea><br><input type = 'submit' value = 'Save' name = 'save_paragraph1'></form>");
 	}
 	
-	
+	//This picture is hardcoded because it is general picture and does not require editting.
 	print("<img src='images/artistinfo/Paintbrushes.jpeg' alt='' class='artistinfoPhoto'>");
 	
 	$paragraph2 = $row['paragraph2'];
@@ -62,6 +62,7 @@
 		print("<form method = 'post' class='artistinfo_save'><textarea rows='4' cols='50' name='new_paragraph2' class='artiststatement'>$paragraph2</textarea><br><input type = 'submit' value = 'Save' name = 'save_paragraph2'></form>");
 	}
 	
+	//This picture is hardcoded because it is general picture and does not require editting.
 	print("<img src='images/artistinfo/Closeupofhand.JPG' alt='' class='artistinfoPhoto'>");
 	
 	
