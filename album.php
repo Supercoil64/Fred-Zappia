@@ -55,6 +55,7 @@
 						$newImage+="</div></div>";
 						$("#content").append($newImage);
 					});
+					page=page*1;
 					page=page+1;
 					$("#pageInfo").attr('value',page);
 					
