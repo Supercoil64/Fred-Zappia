@@ -60,6 +60,10 @@
 					page=page+1;
 					$("#pageInfo").attr('value',page);
 					
+					if(images.length===0){
+						$('#scrollDown').hide();
+					}
+					
 				});
 					
 			}
@@ -150,8 +154,11 @@
 
 
 		 ?>
-
-</div id="content">
+	
+	
+	
+</div>
+<div id='scrollDown'><img src='images/scrollDown.png' class='scrollDownIcon' alt=''></div>
 
 	</body>
 	

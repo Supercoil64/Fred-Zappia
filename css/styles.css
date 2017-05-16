@@ -416,3 +416,7 @@ tr input[type=text]{
     border-radius: initial;
 	text-decoration:underline;
 }
+
+.scrollDownIcon{
+	height: 50px;
+}

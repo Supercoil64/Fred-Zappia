@@ -20,6 +20,7 @@
 	</head>
 	
 	<body>
+	
 	<data id="pageInfo" value=1></data>
 	<?php
 		if(isset($_SESSION['logged_user_by_sql'])){
@@ -70,12 +71,14 @@
 							$newImage+="<a href='edit_image.php?edit_id="+images.image_id+"'>edit</p></a></div>";
 						}
 						$newImage+="</div></div>";
-						$("body").append($newImage);
+						$("#content").append($newImage);
 					});
 					page=page*1;
 					page=page+1;
 					$("#pageInfo").attr('value',page);
-							
+					if(images.length===0){
+						$('#scrollDown').hide();
+					}
 				});
 					
 			}
@@ -92,7 +95,7 @@
 	</script>
 
 
-
+<div id='content'>
 	<?php
 		require_once 'includes/config.php';
 
@@ -205,7 +208,8 @@
 		 $mysqli->close();
 	?>
 
-
+</div>
+<div id='scrollDown'><img src='images/scrollDown.png' class='scrollDownIcon' alt=''></div>
 
 
 	</body>
