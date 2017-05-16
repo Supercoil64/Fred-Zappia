@@ -1,3 +1,4 @@
+
 html, body{
 	height: 100%;
 	/*background-color: #E5E8E8;*/
@@ -106,13 +107,13 @@ iframe{
 /* The hero image */
 #hero-image {
     /* The image used */
-    background-image: url("../img/watercolor.jpg");
+    background-image: url("../images/paintings/1934.jpg");
 
     /* Set a specific height */
-    height: 50%;
+    height: 60%;
 
     /* Position and center the image to scale nicely on all screens */
-    background-position: center;
+    background-position: 10% 10%;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
