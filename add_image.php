@@ -31,7 +31,7 @@
 			exit();
 		}
 
-		$target_dir = "images/paintings";
+		$target_dir = "images/paintings/";
 
 		$message = '';
 		$upload = 1;
@@ -62,7 +62,7 @@
 				$message .= "<p>File already exists</p>";
 			}
 			// check file size
-			if ($_FILES["fileToUpload"]["size"] > 500000) {
+			if ($_FILES["fileToUpload"]["size"] > 5000000) {
 				$message .= "<p>Your file is too large.</p>";
 				$upload = 0;
 			}
@@ -122,7 +122,6 @@
 						$message.='<p>Image Saved.</p>';
 
 						$image_id = $mysqli->insert_id;
-						print("$image_id");
 					} else {
 						$message .= "<p>Error saving image.</p><p>$mysqli->error</p>";
 					}

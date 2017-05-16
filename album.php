@@ -10,7 +10,7 @@
 		<script type="text/javascript">
 			function delete_id(id,album_id){
 			if (confirm('Sure to delete this image in current album?')){
-					window.location.href='gallary.php?album_id='+album_id+ '&delete_id='+id;
+					window.location.href='album.php?album_id='+album_id+ '&delete_id='+id;
 				}
 			}
 		</script>
