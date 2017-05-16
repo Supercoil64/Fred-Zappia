@@ -28,9 +28,9 @@
 		}
 		if(!empty($_GET['sort'])){
 			$sort=FILTER_INPUT(INPUT_GET,'sort',FILTER_SANITIZE_STRING);
-			print("<data id='sort' value=$sort></data>");
+			print("<data id='sort_dummy' value=$sort></data>");
 		}else{
-			print("<data id='sort' value='none'></data>");
+			print("<data id='sort_dummy' value='none'></data>");
 		}
 		
 		
@@ -44,7 +44,7 @@
 			if ((windowHeight - currentPosition) / windowHeight <= 0.0001) {
 				var page=$("#pageInfo").val();
 				console.log(page);
-				var sort=$("#sort").val();
+				var sort=$("#sort_dummy").val();
 				var dataToSend = { page : page, albumId : 0 , sort : sort};
 				console.log(dataToSend);
 				request = $.ajax({
@@ -159,7 +159,7 @@
 		print("<div id='sort'>");
 		print("<h3>sort by: </h3>"); 
 		print("<select onchange='javascript:handleSelect(this)'>");
-		print("<option value=''></option>");
+		//print("<option value=''></option>");
 		print("<option value='all_images.php?sort=title'>title</option>");
 		print("<option value='all_images.php?sort=price'>price</option>");
 		print("</select>");
