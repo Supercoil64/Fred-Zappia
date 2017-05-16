@@ -420,3 +420,14 @@ tr input[type=text]{
 .scrollDownIcon{
 	height: 50px;
 }
+
+#feedback{
+	text-align: center;
+}
+
+#contact_form {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}

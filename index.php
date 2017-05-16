@@ -15,9 +15,11 @@
 		
 		var currentBackground = 0;
 		var backgrounds = [];
-		backgrounds[0] = '/FP/images/paintings/1934.jpg';
-		backgrounds[1] = '/FP/images/paintings/Derby.jpg';
-		backgrounds[2] = '/FP/images/paintings/Bridge at Cooperstown.jpg';
+		backgrounds[0] = '/users/fp_cadbygy/www/final-project/images/paintings/1934.jpg';
+		backgrounds[1] = '/users/fp_cadbygy/www/final-project/images/paintings/Derby.jpg';
+		backgrounds[2] = '/users/fp_cadbygy/www/final-project/images/paintings/Bridge at Cooperstown.jpg';
+		backgrounds[3] = '/users/fp_cadbygy/www/final-project/images/paintings/Bocce.jpg';
+		backgrounds[4] = '/users/fp_cadbygy/www/final-project/images/paintings/The Catcher.jpg';
 
 		function changeBackground() {
 			console.log("in changebackground");
