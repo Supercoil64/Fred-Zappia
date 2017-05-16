@@ -136,13 +136,14 @@
     
 		$sql = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images INNER JOIN Display ON Images.image_id = Display.image_id";
 		// $sql_noalb = "SELECT DISTINCT Images.image_id, Images.title, Images.file_path,Images.price,Images.dimensions FROM Images LEFT JOIN Display ON Images.image_id = Display.image_id WHERE Display.album_id IS NULL";
-
+		
+		$sql .=" ORDER BY";
 		if (!empty($sort)){
-			$sql .= " ORDER BY $sort, Images.image_id";
+			$sql .= " $sort,";
 			// $sql_noalb .= "ORDER BY $sort";
 		}
 		
-		$sql .= " LIMIT 3";
+		$sql .= " Images.image_id LIMIT 3";
 		
 		if ($mysqli->query($sql)){
 			$result = $mysqli->query($sql);
