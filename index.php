@@ -54,6 +54,15 @@
 	
 	<div id="content">
 	
+		<h2>About Fred Zappia</h2>
+	
+		<p id="home_statement">Fred Zappia is an upstate New York-based painter who works 
+		primarily from photographic inspiration, using the brush and 
+		medium to abstract and blur the lines of landscapes and figurative 
+		scenes.  His preferred medium is oil on a vellum-like paper, 
+		imbuing his works with an interesting surface that invites the 
+		eye to explore.</p>
+	
 		<h2>Upcoming Events</h2>
 	
 		<iframe src="https://calendar.google.com/calendar/embed?src=brc77%40cornell.edu&ctz=America/New_York" 

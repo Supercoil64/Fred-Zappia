@@ -431,3 +431,11 @@ tr input[type=text]{
 	margin-right: auto;
 	text-align: center;
 }
+
+#home_statement{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	font-size: 90%;
+}
