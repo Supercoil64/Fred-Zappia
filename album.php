@@ -29,7 +29,7 @@
 				var albumId=$("#albumId").val();
 				console.log(albumId);
 				var sort="none"
-				var dataToSend = { page : page, albumId : albumId, sort:sort};
+				var dataToSend = { page : page, albumId : albumId, sort : sort};
 				console.log(dataToSend);
 				request = $.ajax({
 					url: "images-ajax.php",
