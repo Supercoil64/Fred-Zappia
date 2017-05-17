@@ -41,7 +41,7 @@
 		$(window).scroll(function() {
 			var windowHeight = $(document).height();
 			var currentPosition = $(window).height() + $(window).scrollTop();
-			if ((windowHeight - currentPosition) / windowHeight <= 0.0001) {
+			if ((windowHeight - currentPosition) / windowHeight == 0) {
 				var page=$("#pageInfo").val();
 				console.log(page);
 				var sort=$("#sort_dummy").val();
@@ -67,7 +67,7 @@
 						$newImage+="</h4><p>$";
 						$newImage+=images.price+" "+images.dimensions+"</p></div>";
 						if ($("#key").val()==1){
-							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+")' ><p>delete</a> ";
+							$newImage+="<div class ='delete'><a href='javascript:delete_id("+images.image_id+")' ><p>delete</p></a> ";
 							$newImage+="<a href='edit_image.php?edit_id="+images.image_id+"'>edit</p></a></div>";
 						}
 						$newImage+="</div></div>";
@@ -117,7 +117,8 @@
 			$delete_query = "DELETE FROM Images WHERE image_id = ".$delete_id;
 			$delete_res = $mysqli->query($delete_query);
 			if ($delete_res){
-				unlink($delete_path);
+				$delete_path_decode = str_replace("%20", ' ', $delete_path);
+				unlink($delete_path_decode);
 				print("<script>");
 				print ("window.location.href.replace(window.location.href.split('?')[0]);");
 				print("</script>");
@@ -159,7 +160,6 @@
 		print("<div id='sort'>");
 		print("<h3>sort by: </h3>"); 
 		print("<select onchange='javascript:handleSelect(this)'>");
-		//print("<option value=''></option>");
 		print("<option value='all_images.php?sort=title'>title</option>");
 		print("<option value='all_images.php?sort=price'>price</option>");
 		print("</select>");
@@ -178,8 +178,8 @@
 		 	print("</a>");
 		 	print(" <div class='desc_img'><h4>{$row[ 'title' ]}</h4><p>$"."{$row[ 'price' ]} {$row[ 'dimensions' ]}</p></div>");
 		 	if (isset($_SESSION['logged_user_by_sql'])) {
-				print("<div class ='delete'><a href='javascript:delete_id($id)' ><p>delete</a> ");
-				print("<a href='edit_image.php?edit_id=$id' >edit</p></a></div>");
+				print("<div class ='delete'><a href='javascript:delete_id($id)' ><p>delete</p></a> ");
+				print("<a href='edit_image.php?edit_id=$id' ><p>edit</p></a></div>");
 
 			}
 			print ("</div></div>");

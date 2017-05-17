@@ -83,7 +83,7 @@
 	 		$href = "full_image.php?id= $image_id";
 			print('<tr>');
 			// print( "<td class='caption' width='25%'>{$row_img[ 'caption' ]}</td>" );
-			print( "<td class='file_path' width='20%' ><a href='$href'><img class = 'pic' src= '".$row_img[ 'file_path' ]."' ></img></a></td>" );
+			print( "<td class='file_path' width='30%' ><a href='$href'><img class = 'pic' src= '".$row_img[ 'file_path' ]."' ></img></a></td>" );
 	 		print( "<td class='title' width='15%'><a href='$href'>{$row_img[ 'title' ]}</a></td>" );
 	   	    print( "<td class='dimension' width='25%'>{$row_img[ 'dimensions' ]}</td>" );
 	 		print( "<td class='price' width='20%'>{$row_img[ 'price' ]}</td>" );

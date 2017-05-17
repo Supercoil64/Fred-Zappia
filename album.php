@@ -23,7 +23,7 @@
 		$(window).scroll(function() {
 			var windowHeight = $(document).height();
 			var currentPosition = $(window).height() + $(window).scrollTop();
-			if ((windowHeight - currentPosition) / windowHeight <= 0.0001) {
+			if ((windowHeight - currentPosition) / windowHeight == 0) {
 				var page=$("#pageInfo").val();
 				console.log(page);
 				var albumId=$("#albumId").val();

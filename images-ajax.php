@@ -10,9 +10,11 @@
 		return $page;
 	}
 	
+	
 	$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
 	$album_id = filter_input( INPUT_GET, 'albumId', FILTER_SANITIZE_NUMBER_INT);
 	$sort = filter_input( INPUT_GET, 'sort', FILTER_SANITIZE_STRING);
+	
 	require_once 'includes/config.php';
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ( $mysqli->connect_error ) {
@@ -20,7 +22,6 @@
 	}
 	$per_page = 3;
 	$offset = $per_page * $page;
-	
 	if($album_id!=0){
 		$sql = "SELECT * ";
 		$sql .= "FROM Albums INNER JOIN Display ON Albums.album_id = Display.album_id ";
@@ -33,11 +34,16 @@
 	if($sort!="none"){
 		$sql .= " ORDER BY  $sort,Images.image_id";
 	}
-	
-	
 	$sql .= " LIMIT $offset, $per_page;";
 	$result = $mysqli->query($sql);
-	$all_rows = $result->fetch_all( MYSQLI_ASSOC );
+	
+	//fetch_all does not work well on the server, so change the codes
+	//$all_rows = $result->fetch_all( MYSQLI_ASSOC );
+	$all_rows = array();
+	while ($row = $result->fetch_assoc()) {
+		$all_rows[] = $row;
+	}	
+	
 	$response = array('images' => $all_rows, );
 	print(json_encode( $response ) );
 	die();

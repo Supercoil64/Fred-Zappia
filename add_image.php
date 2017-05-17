@@ -42,7 +42,8 @@
 		if (isset($_POST["submit"])){
 			
 			$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
-			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+			$target_file_temp = str_replace(" ", '%20', $target_file);
 
 			if (!$_FILES["fileToUpload"]["tmp_name"]){
 				$message .= "<p>No file selected.</p>";
@@ -82,7 +83,7 @@
 				$filter = $field[ 'filter' ];
 
 				if ($field_name == 'file_path'){
-					$field_values[$field_name] = $target_file;
+					$field_values[$field_name] = $target_file_temp;
 				}
 
 				//Does this term exist in the POST data submitted by the add/edit movie form?

@@ -83,7 +83,7 @@
 			print("<div class='overlay'>");
 			//print("<div class='desc_album'><h4>{$row[ 'title' ]}</h4><p>Date Created: {$row['date_created']}</p><p>Date Modified: {$row['date_modified']}</p></div>");
 			if (isset($_SESSION['logged_user_by_sql'])) {
-				print("<div class ='delete'><a href='javascript:delete_id($album_id)' ><p>delete</a>  ");
+				print("<div class ='delete'><a href='javascript:delete_id($album_id)' ><p>delete</a>   ");
 				print("<a href='edit_album.php?edit_id=$album_id' >edit</p></a></div>");
 			}
 			print ("</div></div></div>");

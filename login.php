@@ -85,7 +85,7 @@
 			ini_set('smtp_port',22);
 			$to = "yg367@cornell.edu"; // this is your Email address
 			$subject = "Password reset code";
-			$headers = "From:yg367@cornell";
+			$headers = "From:admin@fredzappiafineart.com";
 			mail($to,$subject,$code,$headers);
 			print("<form method='POST'  action='login.php' class='inputform'>Reset code: <input type='text' name='code'><br>New password: <input type='password' name='new_password'><br><input type='submit' name='reset_submit' value='Reset'></form>");
 			

@@ -137,18 +137,6 @@ iframe{
 	float:left;
 }
 
-@media only screen and (max-width: 700px){
-    .box {
-        width: 49.99999%;
-        margin: 6px 0;
-    }
-}
-
-@media only screen and (max-width: 500px){
-    .box {
-        width: 100%;
-    }
-}
 
 
 
@@ -192,6 +180,8 @@ td{
 }
 
 .full_img{
+    max-height:100%;
+    max-width: 100%;
 
 }
 
@@ -324,7 +314,7 @@ h3.center{
 	margin-bottom:0;
 	word-wrap: break-word;
 	line-height:150%;
-	font-size:120%;
+	font-size:110%;
 	clear:both;
 }
 
@@ -438,4 +428,47 @@ tr input[type=text]{
 	margin-right: auto;
 	width: 80%;
 	font-size: 90%;
+}
+
+.file_path{
+    max-width: 40%;
+    max-width: 40%;
+    width: 40%;
+    height:40%;
+    height: auto;
+}
+
+
+@media only screen and (max-width: 700px){
+    .box {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+	#content{
+		width:100%;
+	}
+	.artiststatement{
+		width:100%;
+	}
+	.artistinfoPhoto{
+		height:initial;
+		width:100%;
+	}
+}
+
+@media only screen and (max-width: 500px){
+    .box {
+        width:100%;
+    }
+	#content{
+		width:100%;
+	}
+	.artiststatement{
+		width:100%;
+	}
+	
+	.artistinfoPhoto{
+		height:initial;
+		width:100%;
+	}
 }
